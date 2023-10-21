@@ -8,8 +8,6 @@ class Message {
       this.commands = commands;
    }
 }
-let newCommands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
-let message = new Message('Test message with two commands', newCommands);
 
 
 module.exports = Message
