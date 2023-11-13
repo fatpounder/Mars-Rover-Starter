@@ -10,7 +10,7 @@ const Command = require('../command.js');
 describe("Rover class", function() {
   //Test 7
   it("constructor sets position and default values for mode and generatorWatts", function() {
-    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let commands = [new Command('STATUS_CHECK')];
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover(98382);    
     let response = rover.receiveMessage(message);
@@ -53,23 +53,21 @@ describe("Rover class", function() {
   })
   //Test 12
   it("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
-    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MOVE')];
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover(98382);    
     let response = rover.receiveMessage(message);
     expect(response.results[1].completed).toStrictEqual(false)
+    //CHANGE: receive move command
   })
 
   //Test 13
   it("responds with the position for the move command", function() {
-    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MOVE')];
     let message = new Message('Test message with two commands', commands);
     let rover = new Rover(98382); 
     let response = rover.receiveMessage(message);
-    // let comm = new Command('MOVE', 12345)
-    // let rover = new Rover(comm);
-    // let message = new Message('Test message with two commands', comm);
-    // let response = rover.receiveMessage(message);
     expect(response.results[1].roverStatus.position).toBe(98382)
+    //CHANGE: receive move command
   })
 });
